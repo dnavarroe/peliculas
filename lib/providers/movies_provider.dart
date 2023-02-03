@@ -46,7 +46,7 @@ class MoviesProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-getPopularMovies() async{
+  getPopularMovies() async{
 
     _popularPage++;
 
@@ -55,9 +55,9 @@ getPopularMovies() async{
     
     popularMovies = [ ...popularMovies, ...popularResponse.results ];
     notifyListeners();
-}
+  }
 
-Future<List<Cast>> getMovieCast(int movieId) async{
+  Future<List<Cast>> getMovieCast(int movieId) async{
 
   if(moviesCast.containsKey(movieId))return moviesCast[movieId]!;
 
@@ -68,9 +68,9 @@ Future<List<Cast>> getMovieCast(int movieId) async{
 
   return creditsResponse.cast;
 
-}
+  }
 
-Future<List<Movie>> searchMovies(String query) async{
+  Future<List<Movie>> searchMovies(String query) async{
 
   final url = Uri.https(_baseurl, '3/search/movie', {
     'api_key' :_apiKey,
@@ -84,6 +84,6 @@ Future<List<Movie>> searchMovies(String query) async{
 
   return searchResponse.results;
 
-}
+  }
 
 }
