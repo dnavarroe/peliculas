@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppTheme{
 
-  static Color primary = Colors.green;
+  static Color primary = Color.fromARGB(255, 194, 33, 243);
 
   
   static ThemeData appThemeLight = ThemeData.light().copyWith(

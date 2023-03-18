@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:peliculas/models/models.dart';
 import 'package:peliculas/providers/movies_provider.dart';
+import 'package:peliculas/screens/details_screen.dart';
 import 'package:provider/provider.dart';
 
 class CastingCards extends StatelessWidget {
@@ -62,14 +64,19 @@ class _CastCard extends StatelessWidget {
       height: 100,
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/no-image.jpg'), 
-              image: NetworkImage(actor.fullProfilePath),
-              height: 140,
-              width: 100,
-              fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => _ActorPhoto(actor: actor)));
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/no-image.jpg'), 
+                image: NetworkImage(actor.fullProfilePath),
+                height: 140,
+                width: 100,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(height: 5,),
@@ -79,6 +86,46 @@ class _CastCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
           )
+        ],
+      ),
+    );
+  }
+}
+
+class _ActorPhoto extends StatelessWidget {
+  final Cast actor;
+  const _ActorPhoto({super.key, required this.actor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey.withOpacity(0.9),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(actor.name, style: const TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),),
+          const SizedBox(height: 20,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  placeholder: const AssetImage('assets/no-image.jpg'), 
+                  image: NetworkImage(actor.fullProfilePath),
+                  height: 500,
+                  width: 300,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          const Text('Close', style: TextStyle(color: Colors.white), overflow: TextOverflow.ellipsis,),
+          IconButton(
+            onPressed: (){
+              Navigator.pop(context);}, 
+            icon: const Icon(Icons.keyboard_arrow_down_rounded), color: Colors.white, iconSize: 100,)
         ],
       ),
     );
